@@ -22,11 +22,18 @@ const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 5000;
 const HMR = helpers.hasProcessFlag('hot');
+const API_REST = {
+  protocol: 'http',
+  domain: 'localhost',
+  port: 3000,
+  version: 'v1'
+};
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
   host: HOST,
   port: PORT,
   ENV: ENV,
-  HMR: HMR
+  HMR: HMR,
+  api_rest: API_REST
 });
 
 

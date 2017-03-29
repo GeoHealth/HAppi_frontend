@@ -24,13 +24,20 @@ const OptimizeJsPlugin = require('optimize-js-plugin');
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 8080;
+const API_REST = {
+  protocol: 'https',
+  domain: 'geohealth-happibackend-master.yxvj.flynnhub.com',
+  port: 443,
+  version: 'v1'
+};
 const METADATA = webpackMerge(commonConfig({
   env: ENV
 }).metadata, {
   host: HOST,
   port: PORT,
   ENV: ENV,
-  HMR: false
+  HMR: false,
+  api_rest: API_REST
 });
 
 module.exports = function (env) {
