@@ -60,6 +60,10 @@ declare module 'modern-lru' {
 declare var ENV: string;
 declare var HMR: boolean;
 declare var System: SystemJS;
+declare var API_REST_PROTOCOL: string;
+declare var API_REST_DOMAIN: string;
+declare var API_REST_PORT: string;
+declare var API_REST_VERSION: string;
 
 interface SystemJS {
   import: (path?: string) => Promise<any>;
@@ -70,6 +74,10 @@ interface GlobalEnvironment {
   HMR: boolean;
   SystemJS: SystemJS;
   System: SystemJS;
+  API_REST_PROTOCOL: string;
+  API_REST_DOMAIN: string;
+  API_REST_PORT: string;
+  API_REST_VERSION: string;
 }
 
 interface Es6PromiseLoader {

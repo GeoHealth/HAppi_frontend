@@ -22,18 +22,20 @@ const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 5000;
 const HMR = helpers.hasProcessFlag('hot');
-const API_REST = {
-  protocol: 'http',
-  domain: 'localhost',
-  port: 3000,
-  version: 'v1'
-};
+const API_REST_PROTOCOL = 'http';
+const API_REST_DOMAIN = 'localhost';
+const API_REST_PORT = 3000;
+const API_REST_VERSION = 'v1';
+
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
   host: HOST,
   port: PORT,
   ENV: ENV,
   HMR: HMR,
-  api_rest: API_REST
+  API_REST_PROTOCOL: API_REST_PROTOCOL,
+  API_REST_DOMAIN: API_REST_DOMAIN,
+  API_REST_PORT: API_REST_PORT,
+  API_REST_VERSION: API_REST_VERSION
 });
 
 
@@ -99,18 +101,18 @@ module.exports = function (options) {
     module: {
 
       rules: [
-       {
-         test: /\.ts$/,
-         use: [
-           {
-             loader: 'tslint-loader',
-             options: {
-               configFile: 'tslint.json'
-             }
-           }
-         ],
-         exclude: [/\.(spec|e2e)\.ts$/]
-       },
+        {
+          test: /\.ts$/,
+          use: [
+            {
+              loader: 'tslint-loader',
+              options: {
+                configFile: 'tslint.json'
+              }
+            }
+          ],
+          exclude: [/\.(spec|e2e)\.ts$/]
+        },
 
         /*
          * css loader support for *.css files (styles directory only)
@@ -153,10 +155,18 @@ module.exports = function (options) {
       new DefinePlugin({
         'ENV': JSON.stringify(METADATA.ENV),
         'HMR': METADATA.HMR,
+        'API_REST_PROTOCOL': JSON.stringify(METADATA.API_REST_PROTOCOL),
+        'API_REST_DOMAIN': JSON.stringify(METADATA.API_REST_DOMAIN),
+        'API_REST_PORT': JSON.stringify(METADATA.API_REST_PORT),
+        'API_REST_VERSION': JSON.stringify(METADATA.API_REST_VERSION),
         'process.env': {
           'ENV': JSON.stringify(METADATA.ENV),
           'NODE_ENV': JSON.stringify(METADATA.ENV),
           'HMR': METADATA.HMR,
+          'API_REST_PROTOCOL': JSON.stringify(METADATA.API_REST_PROTOCOL),
+          'API_REST_DOMAIN': JSON.stringify(METADATA.API_REST_DOMAIN),
+          'API_REST_PORT': JSON.stringify(METADATA.API_REST_PORT),
+          'API_REST_VERSION': JSON.stringify(METADATA.API_REST_VERSION),
         }
       }),
 
@@ -201,8 +211,8 @@ module.exports = function (options) {
        * See: https://github.com/SimenB/add-asset-html-webpack-plugin
        */
       new AddAssetHtmlPlugin([
-        { filepath: helpers.root(`dll/${DllBundlesPlugin.resolveFile('polyfills')}`) },
-        { filepath: helpers.root(`dll/${DllBundlesPlugin.resolveFile('vendor')}`) }
+        {filepath: helpers.root(`dll/${DllBundlesPlugin.resolveFile('polyfills')}`)},
+        {filepath: helpers.root(`dll/${DllBundlesPlugin.resolveFile('vendor')}`)}
       ]),
 
       /**
@@ -220,9 +230,7 @@ module.exports = function (options) {
        */
       new LoaderOptionsPlugin({
         debug: true,
-        options: {
-
-        }
+        options: {}
       }),
 
     ],
