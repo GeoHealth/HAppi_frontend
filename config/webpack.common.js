@@ -153,7 +153,7 @@ module.exports = function (options) {
          */
         {
           test: /\.css$/,
-          use: ['raw-loader'],
+          use: ['raw-loader','style-loader', 'css-loader'],
           exclude: [helpers.root('src', 'styles')]
         },
 
