@@ -2,6 +2,10 @@
  * @author: @AngularClass
  */
 
+const autoprefixer = require('autoprefixer');
+
+postcss: [autoprefixer],  // this is inside module.exports object
+
 // Look in ./config folder for webpack.dev.js
 switch (process.env.NODE_ENV) {
   case 'prod':

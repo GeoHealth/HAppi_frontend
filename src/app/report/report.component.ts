@@ -10,9 +10,7 @@ import { Report } from '../../models/report';
   selector: 'report',
   styles: [`
   `],
-  template: `
-    <h1>Report</h1>
-  `
+  templateUrl: `./report.component.html`
 })
 
 export class ReportComponent implements OnInit {
