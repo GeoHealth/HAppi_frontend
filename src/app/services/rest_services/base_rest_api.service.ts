@@ -5,6 +5,15 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class BaseRestAPI {
+  private static handleResponse(rawResponse: Response) {
+    let body = rawResponse.json();
+    return body.data || {};
+  }
+
+  private static handleError(error: Response | any) {
+    return Observable.throw(error);
+  }
+
   private apiProtocol = API_REST_PROTOCOL;
   private apiDomainName = API_REST_DOMAIN;
   private apiPort = API_REST_PORT;
@@ -42,14 +51,5 @@ export class BaseRestAPI {
       });
     }
     return url;
-  }
-
-  private static handleResponse(rawResponse: Response) {
-    let body = rawResponse.json();
-    return body.data || {};
-  }
-
-  private static handleError(error: Response | any) {
-    return Observable.throw(error);
   }
 }
