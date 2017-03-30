@@ -2,7 +2,6 @@ import {
   Component,
   OnInit
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { ReportRestAPI } from '../services/rest_services/report_rest_api.service';
 import { Report } from '../../models/report';
 
@@ -21,8 +20,10 @@ export class ReportComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.reportRestService.getReport('test', 'email').then((report: Report) => {
+    this.reportRestService.getReport('test', 'email').subscribe((report: Report) => {
       console.log(report);
+    }, (err) => {
+      console.log(err);
     });
   }
 }
