@@ -33,6 +33,7 @@ import '../styles/styles.scss';
 import '../styles/headings.css';
 import { ReportRestAPI } from './services/rest_services/report_rest_api.service';
 
+import { ChartModule } from 'angular2-chartjs';
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
@@ -61,7 +62,8 @@ type StoreType = {
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
+    ChartModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
