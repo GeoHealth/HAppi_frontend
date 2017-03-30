@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 export class BaseRestAPI {
   private static handleResponse(rawResponse: Response) {
     let body = rawResponse.json();
-    return body.data || {};
+    return body.data || body;
   }
 
   private static handleError(error: Response | any) {

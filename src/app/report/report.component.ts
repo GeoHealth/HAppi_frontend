@@ -18,10 +18,11 @@ export class ReportComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.reportRestService.getReport('test', 'email').subscribe((report: Report) => {
-      console.log(report);
-    }, (err) => {
-      console.log(err);
-    });
+    this.reportRestService.getReport('DeZQsswbR2rEcxcbC31CcCGF', 'tanguy.vaessen@gmail.com')
+      .subscribe((report: Report) => {
+        console.log(report);
+      }, (err) => {
+        console.log(err);
+      });
   }
 }
