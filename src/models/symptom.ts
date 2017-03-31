@@ -1,6 +1,7 @@
 import { Occurrence } from './occurrence';
 
 export class Symptom {
+  private _id: number;
   private _name: string;
   private _shortDescription: string;
   private _longDescription: string;
@@ -45,5 +46,13 @@ export class Symptom {
 
   set occurrences(value: Occurrence[]) {
     this._occurrences = value;
+  }
+
+  get id(): number {
+    return this._id;
+  }
+
+  set id(value: number) {
+    this._id = value;
   }
 }

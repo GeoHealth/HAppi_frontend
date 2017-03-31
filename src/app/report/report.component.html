@@ -1,22 +1,28 @@
 <br>
 
 <div class="container">
+  <div id="report" class="row">
+    <div id="symptoms_list" class="col-lg-3">
+      <ul class="list-group">
+        <li *ngFor="let symptom of symptomsList"
+            class="list-group-item active justify-content-between"
+            (click)="symptomClicked(symptom)"
+            id="symptom{{symptom.id}}">
+          <span>{{symptom.name}}</span>
+          <span class="badge badge-default badge-pill">{{symptom.occurrences.length}}</span>
+        </li>
+      </ul>
+    </div>
 
-  <div class="alert alert-info">
-    <a href="#" class="btn btn-xs btn-primary pull-right">do an action</a>
-    <strong>Info:</strong> you should do an action.
+    <div id="graphs" class="col-lg-9">
+      <div id="nbOfOccurrencesPerDay">
+        <chart [type]="nbOfOccurrencesPerDayGraph.type" [data]="nbOfOccurrencesPerDayGraph.data" [options]="nbOfOccurrencesPerDayGraph.options"></chart>
+      </div>
+
+      <div id="nbOfOccurrencesPerSymptom">
+        <chart [type]="nbOfOccurrencesPerSymptomGraph.type" [data]="nbOfOccurrencesPerSymptomGraph.data" [options]="nbOfOccurrencesPerSymptomGraph.options"></chart>
+      </div>
+    </div>
   </div>
-
-  <div class="alert alert-warning">
-    <a href="#" class="btn btn-xs btn-warning pull-right">do an action</a>
-    <strong>Warning:</strong> you should do an action.
-  </div>
-
-  <div class="alert alert-danger">
-    <a href="#" class="btn btn-xs btn-danger pull-right">don't do an action</a>
-    <strong>Danger:</strong> you shouldn't do an action!
-  </div>
-
-  <chart [type]="chartType" [data]="chartData" [options]="chartOptions"></chart>
 
 </div>

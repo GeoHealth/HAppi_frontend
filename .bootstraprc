@@ -97,7 +97,7 @@ styles:
   list-group: true
   responsive-embed: true
   close: true
-  badge: false
+  badge: true
 
   # Components w/ JavaScript
   modal: true
