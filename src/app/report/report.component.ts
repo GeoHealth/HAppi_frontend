@@ -9,6 +9,7 @@ import { Symptom } from '../../models/symptom';
 import * as $ from 'jquery';
 import moment from 'moment';
 import { Occurrence } from '../../models/occurrence';
+import * as randomColor from 'randomcolor';
 
 @Component({
   selector: 'report',
@@ -49,6 +50,7 @@ export class ReportComponent implements OnInit {
   };
   public symptomsList: Symptom[] = [];
   public selectedSymptoms: Symptom[] = [];
+  public symptomsColors: Map<number, string> = new Map();
 
   constructor(private reportRestService: ReportRestAPI,
               private activatedRoute: ActivatedRoute) {
@@ -63,9 +65,9 @@ export class ReportComponent implements OnInit {
           .subscribe((report: Report) => {
             this.convertStringDatesToDates(report);
             this.buildSymptomsList(report);
+            this.createRandomColorsForSymptom(report);
             this.buildChartNumberOfOccurrencesPerSymptom(report.symptoms);
             this.buildChartNumberOfOccurrencesPerDay(report.symptoms);
-            console.log(report);
           }, (err) => {
             console.log(err);
           });
@@ -75,6 +77,10 @@ export class ReportComponent implements OnInit {
     });
   }
 
+  /**
+   * Reaction method when a symptom is clicked from the list of symptoms
+   * @param symptom
+   */
   public symptomClicked(symptom: Symptom) {
     $('#symptom' + symptom.id).toggleClass('active');
     if (this.selectedSymptoms.indexOf(symptom) === -1) {
@@ -99,6 +105,13 @@ export class ReportComponent implements OnInit {
     this.nbOfOccurrencesPerDayGraph.data = chartData;
   }
 
+  /**
+   * Build the dataset for the graph NumberOfOccurrencesPerDay
+   * @param symptoms
+   * @param numberOfDays
+   * @param minDate
+   * @param chartData
+   */
   private createDatasetForNumberOfOccurrencesPerDay(symptoms: Symptom[],
                                                     numberOfDays: number,
                                                     minDate: Date,
@@ -106,7 +119,10 @@ export class ReportComponent implements OnInit {
     symptoms.forEach((symptom: Symptom) => {
       let dataset = {
         label: symptom.name,
-        data: new Array(numberOfDays).fill(0)
+        data: new Array(numberOfDays).fill(0),
+        backgroundColor: this.symptomsColors.get(symptom.id),
+        borderColor: this.symptomsColors.get(symptom.id),
+        fill: false
       };
       symptom.occurrences.forEach((occurrence: Occurrence) => {
         let indexInDataArray = Math.abs(moment(occurrence.date).diff(minDate, 'days'));
@@ -116,6 +132,13 @@ export class ReportComponent implements OnInit {
     });
   }
 
+  /**
+   * Fill the chartData with labels representing the date on format DD MM YYYY
+   * starting from minDate and for numberOfDays days
+   * @param numberOfDays
+   * @param minDate
+   * @param chartData
+   */
   private fillLabelsOfChartDataWithDays(numberOfDays: number,
                                         minDate: Date,
                                         chartData: { labels: string[]; datasets: any[] }) {
@@ -125,6 +148,11 @@ export class ReportComponent implements OnInit {
     }
   }
 
+  /**
+   * Iterate over the occurrences of symptoms to find the min and max dates
+   * @param symptoms
+   * @returns {{minDate: Date, maxDate: Date}}
+   */
   private findMinDateAndMaxDate(symptoms: Symptom[]) {
     let minDate: Date = moment().add(1, 'days').toDate();
     let maxDate: Date = moment('2000-01-01').toDate();
@@ -171,6 +199,10 @@ export class ReportComponent implements OnInit {
     this.nbOfOccurrencesPerSymptomGraph.data = chartData;
   }
 
+  /**
+   * Initiate the variable symptomsList and selectedSymptoms
+   * @param report
+   */
   private buildSymptomsList(report: Report) {
     this.symptomsList = report.symptoms;
     this.symptomsList.forEach((symptom) => {
@@ -178,22 +210,45 @@ export class ReportComponent implements OnInit {
     });
   }
 
+  /**
+   * Update all graph based on the selected symptoms
+   */
   private updateGraphs() {
     this.buildChartNumberOfOccurrencesPerSymptom(this.selectedSymptoms);
     this.buildChartNumberOfOccurrencesPerDay(this.selectedSymptoms);
   }
 
+  /**
+   * Order the selected symptoms by name
+   */
   private orderSelectedSymptoms() {
     this.selectedSymptoms.sort((a: Symptom, b: Symptom) => {
       return a.name > b.name ? 1 : -1;
     });
   }
 
+  /**
+   * Iterate over the occurrences to convert the string representation of Date
+   * to JavaScript object Date
+   * @param report
+   */
   private convertStringDatesToDates(report: Report) {
     report.symptoms.forEach((symptom: Symptom) => {
       symptom.occurrences.forEach((occurrence) => {
         occurrence.date = moment(occurrence.date).toDate();
       });
     });
+  }
+
+  /**
+   * Generate random colors for each symptom
+   * @param report
+   */
+  private createRandomColorsForSymptom(report: Report) {
+    let colors = randomColor({count: report.symptoms.length});
+    report.symptoms.forEach((symptom: Symptom, index: number) => {
+      this.symptomsColors.set(symptom.id, colors[index]);
+    });
+
   }
 }
