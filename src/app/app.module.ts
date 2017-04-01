@@ -34,6 +34,8 @@ import { ReportRestAPI } from './services/rest_services/report_rest_api.service'
 
 import { ChartModule } from 'angular2-chartjs';
 import { MomentModule } from 'angular2-moment';
+import { Spinner } from './services/spinner/spinner.service';
+import '../styles/_preloader.scss';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -69,7 +71,8 @@ type StoreType = {
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS,
-    ReportRestAPI
+    ReportRestAPI,
+    Spinner
   ]
 })
 export class AppModule {

@@ -10,6 +10,7 @@ import * as $ from 'jquery';
 import moment from 'moment';
 import { Occurrence } from '../../models/occurrence';
 import * as randomColor from 'randomcolor';
+import { Spinner } from '../services/spinner/spinner.service';
 
 @Component({
   selector: 'report',
@@ -65,10 +66,12 @@ export class ReportComponent implements OnInit {
   public symptomsColors: string[] = [];
 
   constructor(private reportRestService: ReportRestAPI,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private _spinner: Spinner) {
   }
 
   public ngOnInit() {
+    this._spinner.show();
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       let token = params['token'];
       let email = params['email'];
@@ -80,6 +83,7 @@ export class ReportComponent implements OnInit {
             this.createRandomColorsForSymptom(report);
             this.buildChartNumberOfOccurrencesPerSymptom(report.symptoms);
             this.buildChartNumberOfOccurrencesPerDay(report.symptoms);
+            this._spinner.hide();
           }, (err) => {
             console.log(err);
           });
