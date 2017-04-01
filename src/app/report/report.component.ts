@@ -190,10 +190,12 @@ export class ReportComponent implements OnInit {
 
     let dataset = {
       label: 'Occurrences',
-      data: []
+      data: [],
+      backgroundColor: []
     };
     symptoms.forEach((symptom: Symptom) => {
       dataset.data.push(symptom.occurrences.length);
+      dataset.backgroundColor.push(this.symptomsColors.get(symptom.id));
     });
     chartData.datasets.push(dataset);
     this.nbOfOccurrencesPerSymptomGraph.data = chartData;
