@@ -68,10 +68,10 @@ export class ReportComponent implements OnInit {
   constructor(private reportRestService: ReportRestAPI,
               private activatedRoute: ActivatedRoute,
               private _spinner: Spinner) {
+    this._spinner.show();
   }
 
   public ngOnInit() {
-    this._spinner.show();
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       let token = params['token'];
       let email = params['email'];
