@@ -13,8 +13,7 @@ import * as randomColor from 'randomcolor';
 
 @Component({
   selector: 'report',
-  styles: [`
-  `],
+  styleUrls: ['./report.component.scss'],
   templateUrl: `./report.component.html`
 })
 
@@ -27,7 +26,17 @@ export class ReportComponent implements OnInit {
     },
     options: {
       responsive: true,
-      maintainAspectRatio: false
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      },
+      legend: {
+        display: false
+      }
     }
   };
   public nbOfOccurrencesPerSymptomGraph = {
@@ -45,12 +54,15 @@ export class ReportComponent implements OnInit {
             beginAtZero: true
           }
         }]
+      },
+      legend: {
+        display: false
       }
     }
   };
   public symptomsList: Symptom[] = [];
   public selectedSymptoms: Symptom[] = [];
-  public symptomsColors: Map<number, string> = new Map();
+  public symptomsColors: string[] = [];
 
   constructor(private reportRestService: ReportRestAPI,
               private activatedRoute: ActivatedRoute) {
@@ -120,8 +132,8 @@ export class ReportComponent implements OnInit {
       let dataset = {
         label: symptom.name,
         data: new Array(numberOfDays).fill(0),
-        backgroundColor: this.symptomsColors.get(symptom.id),
-        borderColor: this.symptomsColors.get(symptom.id),
+        backgroundColor: this.symptomsColors[symptom.id],
+        borderColor: this.symptomsColors[symptom.id],
         fill: false
       };
       symptom.occurrences.forEach((occurrence: Occurrence) => {
@@ -195,7 +207,7 @@ export class ReportComponent implements OnInit {
     };
     symptoms.forEach((symptom: Symptom) => {
       dataset.data.push(symptom.occurrences.length);
-      dataset.backgroundColor.push(this.symptomsColors.get(symptom.id));
+      dataset.backgroundColor.push(this.symptomsColors[symptom.id]);
     });
     chartData.datasets.push(dataset);
     this.nbOfOccurrencesPerSymptomGraph.data = chartData;
@@ -247,9 +259,9 @@ export class ReportComponent implements OnInit {
    * @param report
    */
   private createRandomColorsForSymptom(report: Report) {
-    let colors = randomColor({count: report.symptoms.length});
+    let colors = randomColor({count: report.symptoms.length, luminosity: 'light'});
     report.symptoms.forEach((symptom: Symptom, index: number) => {
-      this.symptomsColors.set(symptom.id, colors[index]);
+      this.symptomsColors[symptom.id] = colors[index];
     });
 
   }
