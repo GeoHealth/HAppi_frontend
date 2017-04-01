@@ -7,6 +7,8 @@ import { Report } from '../../models/report';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Symptom } from '../../models/symptom';
 import * as $ from 'jquery';
+import moment from 'moment';
+import { Occurrence } from '../../models/occurrence';
 
 @Component({
   selector: 'report',
@@ -28,14 +30,21 @@ export class ReportComponent implements OnInit {
     }
   };
   public nbOfOccurrencesPerSymptomGraph = {
-    type: 'line',
+    type: 'bar',
     data: {
       labels: [],
       datasets: []
     },
     options: {
       responsive: true,
-      maintainAspectRatio: false
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
     }
   };
   public symptomsList: Symptom[] = [];
@@ -52,9 +61,11 @@ export class ReportComponent implements OnInit {
       if (token && email) {
         this.reportRestService.getReport(token, email)
           .subscribe((report: Report) => {
-            console.log(report);
+            this.convertStringDatesToDates(report);
             this.buildSymptomsList(report);
             this.buildChartNumberOfOccurrencesPerSymptom(report.symptoms);
+            this.buildChartNumberOfOccurrencesPerDay(report.symptoms);
+            console.log(report);
           }, (err) => {
             console.log(err);
           });
@@ -75,6 +86,74 @@ export class ReportComponent implements OnInit {
     this.updateGraphs();
   }
 
+  private buildChartNumberOfOccurrencesPerDay(symptoms: Symptom[]) {
+    let chartData = {labels: [], datasets: []};
+
+    this.sortOccurrencesPerDate(symptoms);
+    let {minDate, maxDate} = this.findMinDateAndMaxDate(symptoms);
+    let numberOfDays = Math.abs(moment(maxDate).diff(minDate, 'days')) + 1;
+
+    this.fillLabelsOfChartDataWithDays(numberOfDays, minDate, chartData);
+    this.createDatasetForNumberOfOccurrencesPerDay(symptoms, numberOfDays, minDate, chartData);
+
+    this.nbOfOccurrencesPerDayGraph.data = chartData;
+  }
+
+  private createDatasetForNumberOfOccurrencesPerDay(symptoms: Symptom[],
+                                                    numberOfDays: number,
+                                                    minDate: Date,
+                                                    chartData: { labels: string[]; datasets: any[] }) {
+    symptoms.forEach((symptom: Symptom) => {
+      let dataset = {
+        label: symptom.name,
+        data: new Array(numberOfDays).fill(0)
+      };
+      symptom.occurrences.forEach((occurrence: Occurrence) => {
+        let indexInDataArray = Math.abs(moment(occurrence.date).diff(minDate, 'days'));
+        dataset.data[indexInDataArray] += 1;
+      });
+      chartData.datasets.push(dataset);
+    });
+  }
+
+  private fillLabelsOfChartDataWithDays(numberOfDays: number,
+                                        minDate: Date,
+                                        chartData: { labels: string[]; datasets: any[] }) {
+    for (let i = 0; i < numberOfDays; i++) {
+      let dayLabel: string = moment(minDate).add(i, 'days').format('DD MMM YYYY');
+      chartData.labels.push(dayLabel);
+    }
+  }
+
+  private findMinDateAndMaxDate(symptoms: Symptom[]) {
+    let minDate: Date = moment().add(1, 'days').toDate();
+    let maxDate: Date = moment('2000-01-01').toDate();
+    symptoms.forEach((symptom: Symptom) => {
+      symptom.occurrences.forEach((occurrence: Occurrence) => {
+        if (minDate > occurrence.date) {
+          minDate = occurrence.date;
+        }
+        if (maxDate < occurrence.date) {
+          maxDate = occurrence.date;
+        }
+      });
+    });
+    return {minDate, maxDate};
+  }
+
+  /**
+   * The occurrences of each symptom are sorted per date.
+   * The earliest occurrences goes first in the array and the latest goes last.
+   * @param symptoms
+   */
+  private sortOccurrencesPerDate(symptoms: Symptom[]) {
+    symptoms.forEach((symptom: Symptom) => {
+      symptom.occurrences.sort((a: Occurrence, b: Occurrence) => {
+        return a.date > b.date ? 1 : -1;
+      });
+    });
+  }
+
   private buildChartNumberOfOccurrencesPerSymptom(symptoms: Symptom[]) {
     let chartData = {labels: [], datasets: []};
     symptoms.forEach((symptom: Symptom) => {
@@ -82,7 +161,7 @@ export class ReportComponent implements OnInit {
     });
 
     let dataset = {
-      label: 'Number of occurrences per symptom',
+      label: 'Occurrences',
       data: []
     };
     symptoms.forEach((symptom: Symptom) => {
@@ -101,11 +180,20 @@ export class ReportComponent implements OnInit {
 
   private updateGraphs() {
     this.buildChartNumberOfOccurrencesPerSymptom(this.selectedSymptoms);
+    this.buildChartNumberOfOccurrencesPerDay(this.selectedSymptoms);
   }
 
   private orderSelectedSymptoms() {
     this.selectedSymptoms.sort((a: Symptom, b: Symptom) => {
       return a.name > b.name ? 1 : -1;
+    });
+  }
+
+  private convertStringDatesToDates(report: Report) {
+    report.symptoms.forEach((symptom: Symptom) => {
+      symptom.occurrences.forEach((occurrence) => {
+        occurrence.date = moment(occurrence.date).toDate();
+      });
     });
   }
 }
