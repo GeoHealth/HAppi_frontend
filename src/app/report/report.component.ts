@@ -291,7 +291,7 @@ export class ReportComponent implements OnInit {
    * Compute the dataset for the daily distribution of Symptoms
    * @param symptoms
    */
-  private buildChartDailyDistributionOfSymptoms(symptoms: Symptoms[]) {
+  private buildChartDailyDistributionOfSymptoms(symptoms: Symptom[]) {
     let chartData = {labels: ['Morning', 'Noon', 'Afternoon', 'Evening', 'Night'], datasets: []};
 
     let dataset = {
