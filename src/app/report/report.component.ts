@@ -61,6 +61,22 @@ export class ReportComponent implements OnInit {
       }
     }
   };
+  public dailyDistributionOfSymptomsGraph = {
+    type: 'doughnut',
+    data: {
+      labels: [],
+      datasets: []
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        display: true,
+        position: 'left',
+        fullWidth: true
+      }
+    }
+  };
   public symptomsList: Symptom[] = [];
   public selectedSymptoms: Symptom[] = [];
   public symptomsColors: string[] = [];
@@ -83,6 +99,7 @@ export class ReportComponent implements OnInit {
             this.createRandomColorsForSymptom(report);
             this.buildChartNumberOfOccurrencesPerSymptom(report.symptoms);
             this.buildChartNumberOfOccurrencesPerDay(report.symptoms);
+            this.buildChartDailyDistributionOfSymptoms(report.symptoms);
             this._spinner.hide();
           }, (err) => {
             console.log(err);
@@ -234,6 +251,7 @@ export class ReportComponent implements OnInit {
   private updateGraphs() {
     this.buildChartNumberOfOccurrencesPerSymptom(this.selectedSymptoms);
     this.buildChartNumberOfOccurrencesPerDay(this.selectedSymptoms);
+    this.buildChartDailyDistributionOfSymptoms(this.selectedSymptoms);
   }
 
   /**
@@ -267,6 +285,41 @@ export class ReportComponent implements OnInit {
     report.symptoms.forEach((symptom: Symptom, index: number) => {
       this.symptomsColors[symptom.id] = colors[index];
     });
+  }
 
+  /**
+   * Compute the dataset for the daily distribution of Symptoms
+   * @param symptoms
+   */
+  private buildChartDailyDistributionOfSymptoms(symptoms: Symptoms[]) {
+    let chartData = {labels: ['Morning', 'Noon', 'Afternoon', 'Evening', 'Night'], datasets: []};
+
+    let dataset = {
+      backgroundColor: ['#FD1F5E', '#1EF9A1', '#68F000', '#FF8C00', '#4682B4'],
+      data: new Array(5).fill(0)
+    };
+
+    symptoms.forEach((symptom: Symptom) => {
+      symptom.occurrences.forEach((occurrence: Occurrence) => {
+        let hour = occurrence.date.getHours();
+        if (hour < 2) { // Night occurrence
+          dataset.data[3] += 1;
+        } else if (hour < 8) { // Morning occurrence
+          dataset.data[4] += 1;
+        } else if (hour < 12) { // Noon occurrence
+          dataset.data[0] += 1;
+        } else if (hour < 14) { // Afternoon occurrence
+          dataset.data[1] += 1;
+        } else if (hour < 19) { // Evening occurrence
+          dataset.data[2] += 1;
+        } else { // Night occurrence 
+          dataset.data[3] += 1;
+        }
+      });
+    });
+
+    chartData.datasets.push(dataset);
+
+    this.dailyDistributionOfSymptomsGraph.data = chartData;
   }
 }

@@ -36,6 +36,14 @@
                  [options]="nbOfOccurrencesPerSymptomGraph.options"></chart>
         </div>
       </div>
+
+      <div class="card">
+        <div id="dailyDistributionOfSymptoms" class="card-block">
+          <h4 class="card-title">Daily distribution of symptoms</h4>
+          <chart [type]="dailyDistributionOfSymptomsGraph.type" [data]="dailyDistributionOfSymptomsGraph.data"
+                 [options]="dailyDistributionOfSymptomsGraph.options"></chart>
+        </div>
+      </div>
     </div>
   </div>
 
