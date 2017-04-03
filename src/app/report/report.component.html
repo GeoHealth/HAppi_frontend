@@ -24,8 +24,7 @@
       <div class="card">
         <div id="nbOfOccurrencesPerDay" class="card-block">
           <h4 class="card-title">Number of occurrences per day</h4>
-          <chart [type]="nbOfOccurrencesPerDayGraph.type" [data]="nbOfOccurrencesPerDayGraph.data"
-                 [options]="nbOfOccurrencesPerDayGraph.options"></chart>
+          <occurrences-per-day [symptoms]="selectedSymptoms" [symptomsColors]="symptomsColors"></occurrences-per-day>
         </div>
       </div>
 
