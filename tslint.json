@@ -50,10 +50,7 @@
     "variable-name": [
       true,
       "allow-leading-underscore",
-      "allow-pascal-case",
-      "allow-snake-case",
-      "ban-keywords",
-      "check-format"
+      "ban-keywords"
     ]
   }
 }

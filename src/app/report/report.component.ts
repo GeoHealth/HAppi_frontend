@@ -56,6 +56,8 @@ export class ReportComponent implements OnInit {
       }
     }
   };
+  public startDate: string;
+  public endDate: string;
   public symptomsList: Symptom[] = [];
   public selectedSymptoms: Symptom[] = [];
   public symptomsColors: string[] = [];
@@ -73,6 +75,7 @@ export class ReportComponent implements OnInit {
       if (token && email) {
         this.reportRestService.getReport(token, email)
           .subscribe((report: Report) => {
+            this.buildTitleDates(report);
             this.convertStringDatesToDates(report);
             this.buildSymptomsList(report);
             this.createRandomColorsForSymptom(report);
@@ -222,5 +225,10 @@ export class ReportComponent implements OnInit {
     chartData.datasets.push(dataset);
 
     this.dailyDistributionOfSymptomsGraph.data = chartData;
+  }
+
+  private buildTitleDates(report: Report) {
+    this.startDate = moment(report.start_date).format('Do MMM YYYY');
+    this.endDate = moment(report.end_date).format('Do MMM YYYY');
   }
 }

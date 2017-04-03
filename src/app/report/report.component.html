@@ -1,6 +1,6 @@
-<br>
+<h1>Report from {{startDate}} to {{endDate}}</h1>
 
-<div class="container">
+<div class="container-fluid">
   <div id="report" class="row">
     <div id="symptoms_list" class="col-lg-3">
       <div class="card">
@@ -47,6 +47,12 @@
       <div class="card">
         <div id="calendarOccurrences" class="card-block">
           <full-calendar [symptoms]="selectedSymptoms" [symptomsColors]="symptomsColors"></full-calendar>
+        </div>
+      </div>
+
+      <div class="card">
+        <div id="punchcardGraph" class="card-block">
+          <punchcard [symptoms]="selectedSymptoms"></punchcard>
         </div>
       </div>
     </div>

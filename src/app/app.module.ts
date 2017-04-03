@@ -38,6 +38,7 @@ import { Spinner } from './services/spinner/spinner.service';
 import '../styles/_preloader.scss';
 import { FullCalendarComponent } from './components/fullcalendar/fullCalendar.component';
 import { OccurrencesPerDayComponent } from './components/occurrencesPerDay/occurrencesPerDay.component';
+import { PunchcardComponent } from './components/punchcard/punchcard.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -62,7 +63,8 @@ type StoreType = {
     HomeComponent,
     XLargeDirective,
     FullCalendarComponent,
-    OccurrencesPerDayComponent
+    OccurrencesPerDayComponent,
+    PunchcardComponent,
   ],
   imports: [ // import Angular's modules
     BrowserModule,
