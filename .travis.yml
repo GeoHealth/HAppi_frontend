@@ -20,12 +20,15 @@ before_install:
   - npm i npm@^4 -g
 install:
   - npm install
+  - npm install -g codeclimate-test-reporter
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - sleep 3
 script:
   - npm run ci:travis
+after_success:
+  - codeclimate-test-reporter < coverage/coverage.lcov
 cache:
   directories:
     - node_modules

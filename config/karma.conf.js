@@ -56,7 +56,7 @@ module.exports = function (config) {
 
     remapCoverageReporter: {
       'text-summary': null,
-      json: './coverage/coverage.json',
+      'lcovonly': './coverage/coverage.lcov',
       html: './coverage/html'
     },
 
@@ -67,7 +67,7 @@ module.exports = function (config) {
       noInfo: true,
       // and use stats to turn off verbose output
       stats: {
-        // options i.e. 
+        // options i.e.
         chunks: false
       }
     },
