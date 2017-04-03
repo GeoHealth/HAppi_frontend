@@ -36,6 +36,7 @@ import { ChartModule } from 'angular2-chartjs';
 import { MomentModule } from 'angular2-moment';
 import { Spinner } from './services/spinner/spinner.service';
 import '../styles/_preloader.scss';
+import { FullCalendarComponent } from './components/fullcalendar/fullCalendar.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -58,7 +59,8 @@ type StoreType = {
     AppComponent,
     ReportComponent,
     HomeComponent,
-    XLargeDirective
+    XLargeDirective,
+    FullCalendarComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,

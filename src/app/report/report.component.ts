@@ -97,9 +97,7 @@ export class ReportComponent implements OnInit {
             this.convertStringDatesToDates(report);
             this.buildSymptomsList(report);
             this.createRandomColorsForSymptom(report);
-            this.buildChartNumberOfOccurrencesPerSymptom(report.symptoms);
-            this.buildChartNumberOfOccurrencesPerDay(report.symptoms);
-            this.buildChartDailyDistributionOfSymptoms(report.symptoms);
+            this.updateGraphs();
             this._spinner.hide();
           }, (err) => {
             console.log(err);
@@ -249,6 +247,7 @@ export class ReportComponent implements OnInit {
    * Update all graph based on the selected symptoms
    */
   private updateGraphs() {
+    this.selectedSymptoms = Array.from(this.selectedSymptoms);
     this.buildChartNumberOfOccurrencesPerSymptom(this.selectedSymptoms);
     this.buildChartNumberOfOccurrencesPerDay(this.selectedSymptoms);
     this.buildChartDailyDistributionOfSymptoms(this.selectedSymptoms);

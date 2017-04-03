@@ -44,6 +44,12 @@
                  [options]="dailyDistributionOfSymptomsGraph.options"></chart>
         </div>
       </div>
+
+      <div class="card">
+        <div id="calendarOccurrences" class="card-block">
+          <full-calendar [symptoms]="selectedSymptoms" [symptomsColors]="symptomsColors"></full-calendar>
+        </div>
+      </div>
     </div>
   </div>
 
