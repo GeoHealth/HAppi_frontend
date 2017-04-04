@@ -101,8 +101,6 @@ export class ReportComponent implements OnInit {
     } else {
       this.selectedSymptoms.splice(this.selectedSymptoms.indexOf(symptom), 1);
     }
-    this.orderSelectedSymptoms();
-    this.sortOccurrencesPerDate(this.selectedSymptoms);
     this.updateGraphs();
   }
 
@@ -153,6 +151,8 @@ export class ReportComponent implements OnInit {
    * Update all graph based on the selected symptoms
    */
   private updateGraphs() {
+    this.orderSelectedSymptoms();
+    this.sortOccurrencesPerDate(this.selectedSymptoms);
     this.selectedSymptoms = Array.from(this.selectedSymptoms);
     this.buildChartNumberOfOccurrencesPerSymptom(this.selectedSymptoms);
     this.buildChartDailyDistributionOfSymptoms(this.selectedSymptoms);
