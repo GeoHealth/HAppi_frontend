@@ -33,7 +33,7 @@ export class PunchcardComponent implements AfterViewInit, OnChanges {
     this.chart = d3.select('#punchcard').append('svg')
       .attr('width', this.width + this.margin.left + this.margin.right)
       .attr('height', '100%')
-      .style('min-height', '300')
+      .style('min-height', '300px')
       .append('g');
 
     this.border = this.chart.append('rect')
