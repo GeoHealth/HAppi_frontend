@@ -28,6 +28,8 @@ const API_REST_PROTOCOL = 'https';
 const API_REST_DOMAIN = 'geohealth-happibackend-master.yxvj.flynnhub.com';
 const API_REST_PORT = 443;
 const API_REST_VERSION = 'v1';
+const API_GOOGLE_MAP = './assets/key/google_map_prod.json';
+
 
 const METADATA = webpackMerge(commonConfig({
   env: ENV
@@ -39,7 +41,8 @@ const METADATA = webpackMerge(commonConfig({
   API_REST_PROTOCOL: API_REST_PROTOCOL,
   API_REST_DOMAIN: API_REST_DOMAIN,
   API_REST_PORT: API_REST_PORT,
-  API_REST_VERSION: API_REST_VERSION
+  API_REST_VERSION: API_REST_VERSION,
+  API_GOOGLE_MAP: API_GOOGLE_MAP
 });
 
 module.exports = function (env) {
@@ -170,6 +173,7 @@ module.exports = function (env) {
         'API_REST_DOMAIN': JSON.stringify(METADATA.API_REST_DOMAIN),
         'API_REST_PORT': JSON.stringify(METADATA.API_REST_PORT),
         'API_REST_VERSION': JSON.stringify(METADATA.API_REST_VERSION),
+        'API_GOOGLE_MAP': JSON.stringify(METADATA.API_GOOGLE_MAP),
         'process.env': {
           'ENV': JSON.stringify(METADATA.ENV),
           'NODE_ENV': JSON.stringify(METADATA.ENV),
@@ -178,6 +182,7 @@ module.exports = function (env) {
           'API_REST_DOMAIN': JSON.stringify(METADATA.API_REST_DOMAIN),
           'API_REST_PORT': JSON.stringify(METADATA.API_REST_PORT),
           'API_REST_VERSION': JSON.stringify(METADATA.API_REST_VERSION),
+          'API_GOOGLE_MAP': JSON.stringify(METADATA.API_GOOGLE_MAP)
         }
       }),
 

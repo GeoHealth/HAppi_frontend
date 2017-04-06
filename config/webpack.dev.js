@@ -26,12 +26,14 @@ const API_REST_PROTOCOL = 'http';
 const API_REST_DOMAIN = 'localhost';
 const API_REST_PORT = 3000;
 const API_REST_VERSION = 'v1';
+const API_GOOGLE_MAP = './assets/key/google_map_dev.json';
 
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
   host: HOST,
   port: PORT,
   ENV: ENV,
   HMR: HMR,
+  API_GOOGLE_MAP: API_GOOGLE_MAP,
   API_REST_PROTOCOL: API_REST_PROTOCOL,
   API_REST_DOMAIN: API_REST_DOMAIN,
   API_REST_PORT: API_REST_PORT,
@@ -155,6 +157,7 @@ module.exports = function (options) {
       new DefinePlugin({
         'ENV': JSON.stringify(METADATA.ENV),
         'HMR': METADATA.HMR,
+        'API_GOOGLE_MAP' : JSON.stringify(METADATA.API_GOOGLE_MAP),
         'API_REST_PROTOCOL': JSON.stringify(METADATA.API_REST_PROTOCOL),
         'API_REST_DOMAIN': JSON.stringify(METADATA.API_REST_DOMAIN),
         'API_REST_PORT': JSON.stringify(METADATA.API_REST_PORT),
@@ -163,6 +166,7 @@ module.exports = function (options) {
           'ENV': JSON.stringify(METADATA.ENV),
           'NODE_ENV': JSON.stringify(METADATA.ENV),
           'HMR': METADATA.HMR,
+          'API_GOOGLE_MAP' : JSON.stringify(METADATA.API_GOOGLE_MAP),
           'API_REST_PROTOCOL': JSON.stringify(METADATA.API_REST_PROTOCOL),
           'API_REST_DOMAIN': JSON.stringify(METADATA.API_REST_DOMAIN),
           'API_REST_PORT': JSON.stringify(METADATA.API_REST_PORT),

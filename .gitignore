@@ -70,4 +70,4 @@ dll/
 *.css.shim.ts
 *.ngsummary.json
 *.shim.ngstyle.ts
-key.ts
+*.google_map_dev.json
