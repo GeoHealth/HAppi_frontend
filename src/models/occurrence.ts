@@ -2,8 +2,9 @@ import { GPSCoordinates } from './gps_coordinates';
 import { FactorInstance } from './factor_instance';
 
 export class Occurrence {
+
   private _date: Date;
-  private _coordinates: GPSCoordinates;
+  private _gps_coordinate: GPSCoordinates;
   private _factorsInstances: FactorInstance[];
 
   get factorsInstances(): FactorInstance[] {
@@ -14,12 +15,12 @@ export class Occurrence {
     this._factorsInstances = value;
   }
 
-  get coordinates(): GPSCoordinates {
-    return this._coordinates;
+  get gps_coordinate(): GPSCoordinates {
+    return this._gps_coordinate;
   }
 
-  set coordinates(value: GPSCoordinates) {
-    this._coordinates = value;
+  set gps_coordinate(value: GPSCoordinates) {
+    this._gps_coordinate = value;
   }
 
   get date(): Date {

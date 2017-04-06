@@ -38,6 +38,8 @@ import { Spinner } from './services/spinner/spinner.service';
 import '../styles/_preloader.scss';
 import { FullCalendarComponent } from './components/fullcalendar/fullCalendar.component';
 import { OccurrencesPerDayComponent } from './components/occurrencesPerDay/occurrencesPerDay.component';
+import { ApiLoaderService } from './api_loader/api_loader.service';
+import { BubbleMapComponent } from './components/bubblemap/bubbleMap.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -62,7 +64,8 @@ type StoreType = {
     HomeComponent,
     XLargeDirective,
     FullCalendarComponent,
-    OccurrencesPerDayComponent
+    OccurrencesPerDayComponent,
+    BubbleMapComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
@@ -76,7 +79,8 @@ type StoreType = {
     ENV_PROVIDERS,
     APP_PROVIDERS,
     ReportRestAPI,
-    Spinner
+    Spinner,
+    ApiLoaderService
   ]
 })
 export class AppModule {
