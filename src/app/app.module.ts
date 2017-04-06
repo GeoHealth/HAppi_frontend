@@ -40,6 +40,7 @@ import { FullCalendarComponent } from './components/fullcalendar/fullCalendar.co
 import { OccurrencesPerDayComponent } from './components/occurrencesPerDay/occurrencesPerDay.component';
 import { ApiLoaderService } from './api_loader/api_loader.service';
 import { BubbleMapComponent } from './components/bubblemap/bubbleMap.component';
+import { PunchcardComponent } from './components/punchcard/punchcard.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -65,6 +66,7 @@ type StoreType = {
     XLargeDirective,
     FullCalendarComponent,
     OccurrencesPerDayComponent,
+    PunchcardComponent,
     BubbleMapComponent
   ],
   imports: [ // import Angular's modules

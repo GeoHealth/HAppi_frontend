@@ -100,6 +100,8 @@ export class OccurrencesPerDayComponent implements AfterViewInit, OnChanges {
 
   /**
    * Iterate over the occurrences of symptoms to find the min and max dates
+   * minDate will always have its hour, minutes and seconds set to 0
+   * maxDate will always be at 23:59:59
    * @param symptoms
    * @returns {{minDate: Date, maxDate: Date}}
    */
@@ -116,6 +118,8 @@ export class OccurrencesPerDayComponent implements AfterViewInit, OnChanges {
         }
       });
     });
+    minDate.setHours(0, 0, 0);
+    maxDate.setHours(23, 59, 59);
     return {minDate, maxDate};
   }
 }
