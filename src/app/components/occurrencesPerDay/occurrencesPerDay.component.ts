@@ -118,6 +118,8 @@ export class OccurrencesPerDayComponent implements AfterViewInit, OnChanges {
         }
       });
     });
+    minDate = moment(minDate).toDate();
+    maxDate = moment(maxDate).toDate();
     minDate.setHours(0, 0, 0);
     maxDate.setHours(23, 59, 59);
     return {minDate, maxDate};

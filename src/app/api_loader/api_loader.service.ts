@@ -1,4 +1,4 @@
-import { Injectable, isDevMode } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { KEY } from '../../../key';
 import { Http } from '@angular/http';
 
@@ -37,5 +37,4 @@ export class ApiLoaderService {
       });
     });
   }
-
 }
