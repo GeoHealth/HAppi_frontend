@@ -1,0 +1,26 @@
+<table class="table table-responsive table-bordered table-striped">
+  <thead class="thead-inverse">
+  <tr>
+    <td>Symptom</td>
+    <td>Day</td>
+    <td>Hour</td>
+    <td>Weather</td>
+    <td>Temperature (C°)</td>
+    <td>Humidity (%)</td>
+  </tr>
+  </thead>
+  <tbody>
+  <template let-symptom ngFor [ngForOf]="symptoms">
+    <tr *ngFor="let occurrence of symptom.occurrences">
+      <td>{{symptom.name}}</td>
+      <td>{{getFormatedDay(occurrence)}}</td>
+      <td>{{getFormatedHour(occurrence)}}</td>
+      <td>{{getWeather(occurrence)}}</td>
+      <td>{{getTemperature(occurrence)}}</td>
+      <td>{{getHumidity(occurrence)}}</td>
+
+    </tr>
+  </template>
+
+  </tbody>
+</table>

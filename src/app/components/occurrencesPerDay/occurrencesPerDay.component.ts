@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Symptom } from '../../../models/symptom';
 import { Occurrence } from '../../../models/occurrence';
 import { isNullOrUndefined } from 'util';
@@ -8,7 +8,7 @@ import moment from 'moment';
   selector: 'occurrences-per-day',
   templateUrl: './occurrencesPerDay.html',
 })
-export class OccurrencesPerDayComponent implements AfterViewInit, OnChanges {
+export class OccurrencesPerDayComponent implements OnChanges {
   @Input() public symptoms: Symptom[];
   @Input() public symptomsColors: string[] = [];
 
@@ -31,10 +31,6 @@ export class OccurrencesPerDayComponent implements AfterViewInit, OnChanges {
       display: false
     }
   };
-
-  public ngAfterViewInit() {
-    // add init logic here
-  }
 
   public ngOnChanges(changes: SimpleChanges): void {
     let newSymptoms: Symptom[] = changes['symptoms'].currentValue;

@@ -41,6 +41,7 @@ import { OccurrencesPerDayComponent } from './components/occurrencesPerDay/occur
 import { ApiLoaderService } from './api_loader/api_loader.service';
 import { BubbleMapComponent } from './components/bubblemap/bubbleMap.component';
 import { PunchcardComponent } from './components/punchcard/punchcard.component';
+import { OccurrencesDetailsComponent } from './components/occurrencesDetails/occurrencesDetails.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -67,7 +68,8 @@ type StoreType = {
     FullCalendarComponent,
     OccurrencesPerDayComponent,
     PunchcardComponent,
-    BubbleMapComponent
+    BubbleMapComponent,
+    OccurrencesDetailsComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,

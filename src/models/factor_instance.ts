@@ -1,8 +1,14 @@
-import { Factor } from './factor';
-
 export class FactorInstance {
-  private _factor: Factor;
   private _value: string;
+  private _factor_id: number;
+
+  get factor_id(): number {
+    return this._factor_id;
+  }
+
+  set factor_id(value: number) {
+    this._factor_id = value;
+  }
 
   get value(): string {
     return this._value;
@@ -10,13 +16,5 @@ export class FactorInstance {
 
   set value(value: string) {
     this._value = value;
-  }
-
-  get factor(): Factor {
-    return this._factor;
-  }
-
-  set factor(value: Factor) {
-    this._factor = value;
   }
 }
