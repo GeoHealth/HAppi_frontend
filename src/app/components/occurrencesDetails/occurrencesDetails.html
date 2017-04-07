@@ -10,17 +10,32 @@
   </tr>
   </thead>
   <tbody>
-  <template let-symptom ngFor [ngForOf]="symptoms">
-    <tr *ngFor="let occurrence of symptom.occurrences">
-      <td>{{symptom.name}}</td>
-      <td>{{getFormatedDay(occurrence)}}</td>
-      <td>{{getFormatedHour(occurrence)}}</td>
-      <td>{{getWeather(occurrence)}}</td>
-      <td>{{getTemperature(occurrence)}}</td>
-      <td>{{getHumidity(occurrence)}}</td>
 
-    </tr>
-  </template>
-
+  <tr *ngFor="let occurrence of visibleOccurrences">
+    <td>{{occurrence.symptomName}}</td>
+    <td>{{getFormatedDay(occurrence)}}</td>
+    <td>{{getFormatedHour(occurrence)}}</td>
+    <td>{{getWeather(occurrence)}}</td>
+    <td>{{getTemperature(occurrence)}}</td>
+    <td>{{getHumidity(occurrence)}}</td>
+  </tr>
   </tbody>
 </table>
+
+<ul class="pagination">
+  <li class="page-item">
+    <a class="page-link" aria-label="Previous" (click)="pageClicked(currentPage - 1)">
+      <span aria-hidden="true">&laquo;</span>
+      <span class="sr-only">Previous</span>
+    </a>
+  </li>
+  <li class="page-item" *ngFor="let pageNumber of pages" [ngClass]="{'active': (currentPage === pageNumber)}"><span
+    class="page-link" (click)="pageClicked(pageNumber)">{{pageNumber}}</span></li>
+  <li class="page-item">
+    <a class="page-link" aria-label="Next" (click)="pageClicked(currentPage + 1)">
+      <span aria-hidden="true">&raquo;</span>
+      <span class="sr-only">Next</span>
+    </a>
+  </li>
+</ul>
+
