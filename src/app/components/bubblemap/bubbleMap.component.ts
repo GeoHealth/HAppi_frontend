@@ -60,7 +60,8 @@ export class BubbleMapComponent implements AfterViewInit, OnChanges {
 
   private updateMarkers() {
     this.mc = new MarkerClusterer(this.map, this.googleMarkers,
-      {imagePath: 'https://googlemaps.github.io/js-marker-clusterer/images/m',
+      {
+        imagePath: 'https://googlemaps.github.io/js-marker-clusterer/images/m',
         maxZoom: 20
       });
   }
@@ -70,16 +71,18 @@ export class BubbleMapComponent implements AfterViewInit, OnChanges {
     let markers = [];
     this.symptoms.forEach((symptom: Symptom) => {
       symptom.occurrences.forEach((occurrence: Occurrence) => {
-        let point = new google.maps.LatLng(occurrence.gps_coordinate.latitude, occurrence.gps_coordinate.longitude);
-        let marker = new google.maps.Marker({
-          position: point
-        });
-        google.maps.event.addListener(marker, 'click', (() => {
-          infoWin.setContent(symptom.name);
-          infoWin.open(this.map, marker);
-        }));
-        this.markerBounds.extend(point);
-        markers.push(marker);
+        if (!isNullOrUndefined(occurrence.gps_coordinate)) {
+          let point = new google.maps.LatLng(occurrence.gps_coordinate.latitude, occurrence.gps_coordinate.longitude);
+          let marker = new google.maps.Marker({
+            position: point
+          });
+          google.maps.event.addListener(marker, 'click', (() => {
+            infoWin.setContent(symptom.name);
+            infoWin.open(this.map, marker);
+          }));
+          this.markerBounds.extend(point);
+          markers.push(marker);
+        }
       });
     });
     return markers;
