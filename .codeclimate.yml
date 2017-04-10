@@ -19,4 +19,4 @@ ratings:
   - "**.jsx"
 exclude_paths:
 - config/
-- assets/js
+- src/assets/js
