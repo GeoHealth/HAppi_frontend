@@ -21,50 +21,52 @@
     </div>
 
     <div id="graphs" class="col-lg-9 text-center">
-      <div class="card">
-        <div id="nbOfOccurrencesPerDay" class="card-block">
-          <h4 class="card-title">Number of occurrences per day</h4>
-          <occurrences-per-day [symptoms]="selectedSymptoms" [symptomsColors]="symptomsColors"></occurrences-per-day>
+      <div class="row">
+        <div class="card col-lg-6 col-md-12">
+          <div id="nbOfOccurrencesPerSymptom" class="card-block">
+            <h4 class="card-title">Number of occurrences per symptom</h4>
+            <chart [type]="nbOfOccurrencesPerSymptomGraph.type" [data]="nbOfOccurrencesPerSymptomGraph.data"
+                   [options]="nbOfOccurrencesPerSymptomGraph.options"></chart>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <div id="nbOfOccurrencesPerSymptom" class="card-block">
-          <h4 class="card-title">Number of occurrences per symptom</h4>
-          <chart [type]="nbOfOccurrencesPerSymptomGraph.type" [data]="nbOfOccurrencesPerSymptomGraph.data"
-                 [options]="nbOfOccurrencesPerSymptomGraph.options"></chart>
+        <div class="card col-lg-6 col-md-12">
+          <div id="dailyDistributionOfSymptoms" class="card-block">
+            <h4 class="card-title">Daily distribution of symptoms</h4>
+            <chart [type]="dailyDistributionOfSymptomsGraph.type" [data]="dailyDistributionOfSymptomsGraph.data"
+                   [options]="dailyDistributionOfSymptomsGraph.options"></chart>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <div id="dailyDistributionOfSymptoms" class="card-block">
-          <h4 class="card-title">Daily distribution of symptoms</h4>
-          <chart [type]="dailyDistributionOfSymptomsGraph.type" [data]="dailyDistributionOfSymptomsGraph.data"
-                 [options]="dailyDistributionOfSymptomsGraph.options"></chart>
+        <div class="card col-lg-6 col-md-12">
+          <div id="nbOfOccurrencesPerDay" class="card-block">
+            <h4 class="card-title">Number of occurrences per day</h4>
+            <occurrences-per-day [symptoms]="selectedSymptoms" [symptomsColors]="symptomsColors"></occurrences-per-day>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <div id="calendarOccurrences" class="card-block">
-          <full-calendar [symptoms]="selectedSymptoms" [symptomsColors]="symptomsColors"></full-calendar>
+        <div class="card col-lg-6 col-md-12">
+          <div id="calendarOccurrences" class="card-block">
+            <full-calendar [symptoms]="selectedSymptoms" [symptomsColors]="symptomsColors"></full-calendar>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <div id="mapOccurrences" class="card-block">
-          <bubble-map [symptoms]="selectedSymptoms" [symptomsColors]="symptomsColors"></bubble-map>
+        <div class="card col-md-12">
+          <div id="mapOccurrences" class="card-block">
+            <bubble-map [symptoms]="selectedSymptoms" [symptomsColors]="symptomsColors"></bubble-map>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <div id="punchcardGraph" class="card-block">
-          <punchcard [symptoms]="selectedSymptoms"></punchcard>
+        <div class="card col-md-12">
+          <div id="punchcardGraph" class="card-block">
+            <punchcard [symptoms]="selectedSymptoms"></punchcard>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <div id="occurrencesDetails" class="card-block">
-          <occurrences-details [symptoms]="selectedSymptoms"></occurrences-details>
+        <div class="card col-md-12">
+          <div id="occurrencesDetails" class="card-block">
+            <occurrences-details [symptoms]="selectedSymptoms"></occurrences-details>
+          </div>
         </div>
       </div>
     </div>

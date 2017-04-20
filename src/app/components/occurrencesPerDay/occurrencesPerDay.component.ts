@@ -19,7 +19,7 @@ export class OccurrencesPerDayComponent implements OnChanges {
   };
   public options: Object = {
     responsive: true,
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
     scales: {
       yAxes: [{
         ticks: {

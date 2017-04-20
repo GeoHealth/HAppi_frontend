@@ -25,7 +25,7 @@ import { AppState } from './app.service';
     </main>
 
     <footer>
-      <span>© GeoHealth</span>
+      <span>© <a href="https://github.com/GeoHealth" target="_blank">GeoHealth Crew</a></span>
 
     </footer>
   `
