@@ -26,7 +26,6 @@ import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 import { HomeComponent } from './home';
 import { ReportComponent } from './report';
-import { XLargeDirective } from './home/x-large';
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
@@ -64,7 +63,6 @@ type StoreType = {
     AppComponent,
     ReportComponent,
     HomeComponent,
-    XLargeDirective,
     FullCalendarComponent,
     OccurrencesPerDayComponent,
     PunchcardComponent,
