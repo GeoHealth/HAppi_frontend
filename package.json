@@ -95,6 +95,11 @@
     "reflect-metadata": "^0.1.9",
     "rimraf": "~2.6.0",
     "rxjs": "5.0.2",
+    "webpack": "2.3.1",
+    "webpack-dev-middleware": "^1.10.0",
+    "webpack-dev-server": "2.4.1",
+    "webpack-dll-bundles-plugin": "^1.0.0-beta.5",
+    "webpack-merge": "~3.0.0",
     "zone.js": "0.7.6"
   },
   "devDependencies": {
@@ -157,12 +162,7 @@
     "tslint-loader": "^3.3.0",
     "typedoc": "^0.5.3",
     "typescript": "~2.2.1",
-    "url-loader": "^0.5.8",
-    "webpack": "2.3.1",
-    "webpack-dev-middleware": "^1.10.0",
-    "webpack-dev-server": "2.4.1",
-    "webpack-dll-bundles-plugin": "^1.0.0-beta.5",
-    "webpack-merge": "~3.0.0"
+    "url-loader": "^0.5.8"
   },
   "repository": {
     "type": "git",
