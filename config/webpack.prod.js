@@ -25,7 +25,7 @@ const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 8080;
 const API_REST_PROTOCOL = 'https';
-const API_REST_DOMAIN = 'geohealth-happibackend-master.yxvj.flynnhub.com';
+const API_REST_DOMAIN = 'geohealth-happibackend-prod.happi-doctor.be';
 const API_REST_PORT = 443;
 const API_REST_VERSION = 'v1';
 const API_GOOGLE_MAP = './assets/key/google_map_prod.json';
