@@ -14,7 +14,6 @@ import { Spinner } from '../services/spinner/spinner.service';
 import * as jsPDF from 'jspdf';
 import '../../../node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js';
 import { OccurrencesDetailsComponent } from '../components/occurrencesDetails/occurrencesDetails.component';
-import * as html2canvas from 'html2canvas';
 
 @Component({
   selector: 'report',
@@ -65,7 +64,7 @@ export class ReportComponent implements OnInit {
   public symptomsList: Symptom[] = [];
   public selectedSymptoms: Symptom[] = [];
   public symptomsColors: string[] = [];
-  private occurrencesDetails: OccurrencesDetailsComponent
+  private occurrencesDetails: OccurrencesDetailsComponent;
 
   constructor(private reportRestService: ReportRestAPI,
               private activatedRoute: ActivatedRoute,
@@ -150,6 +149,7 @@ export class ReportComponent implements OnInit {
     // Add Occurrences per day charts to pdf
     const nbOfOccurrencesPerDay = document.getElementById('nbOfOccurrencesPerDay');
     doc.addHTML(nbOfOccurrencesPerDay, () => {
+      // nothing
     });
     setTimeout(() => {
       doc.save('result.pdf');
