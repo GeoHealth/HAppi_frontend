@@ -131,7 +131,7 @@ export class ReportComponent implements OnInit {
     });
     // Add table of symptom to the PDF
     doc.autoTable(columns_symptoms, rows_symptoms, {
-      startY: 50
+      startY: 25
     });
     // Add table of occurrences to the PDF
     doc.autoTable(columns_occurrences, rows_occurrences, {
