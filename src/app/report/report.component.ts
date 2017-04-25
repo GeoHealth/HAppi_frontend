@@ -11,6 +11,10 @@ import moment from 'moment';
 import { Occurrence } from '../../models/occurrence';
 import * as randomColor from 'randomcolor';
 import { Spinner } from '../services/spinner/spinner.service';
+import * as jsPDF from 'jspdf';
+import '../../../node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js';
+import { OccurrencesDetailsComponent } from '../components/occurrencesDetails/occurrencesDetails.component';
+import * as html2canvas from 'html2canvas';
 
 @Component({
   selector: 'report',
@@ -61,11 +65,13 @@ export class ReportComponent implements OnInit {
   public symptomsList: Symptom[] = [];
   public selectedSymptoms: Symptom[] = [];
   public symptomsColors: string[] = [];
+  private occurrencesDetails: OccurrencesDetailsComponent
 
   constructor(private reportRestService: ReportRestAPI,
               private activatedRoute: ActivatedRoute,
               private _spinner: Spinner) {
     this._spinner.show();
+    this.occurrencesDetails = new OccurrencesDetailsComponent();
   }
 
   public ngOnInit() {
@@ -102,6 +108,52 @@ export class ReportComponent implements OnInit {
       this.selectedSymptoms.splice(this.selectedSymptoms.indexOf(symptom), 1);
     }
     this.updateGraphs();
+  }
+
+  public toPDF() {
+    // Creation of the pdf
+    let doc = new jsPDF();
+    let columns_symptoms = ['Symptom', 'Number of occurrences'];
+    let rows_symptoms = [];
+    let columns_occurrences = ['Symptom', 'Day', 'Hour', 'Weather', 'Temperature (C°)', 'Humidity (%)'];
+    let rows_occurrences = [];
+    // Set title to the PDF
+    doc.text('Report from ' + this.startDate + ' to ' + this.endDate, 10, 20);
+    // Build Data Set
+    this.symptomsList.forEach((symptom: Symptom) => {
+      rows_symptoms.push([symptom.name, symptom.occurrences.length]);
+      symptom.occurrences.forEach((occurrence: Occurrence) => {
+        rows_occurrences.push([symptom.name , this.occurrencesDetails.getFormatedDay(occurrence),
+          this.occurrencesDetails.getFormatedHour(occurrence), this.occurrencesDetails.getWeather(occurrence),
+          this.occurrencesDetails.getTemperature(occurrence), this.occurrencesDetails.getHumidity(occurrence)]);
+      });
+
+    });
+    // Add table of symptom to the PDF
+    doc.autoTable(columns_symptoms, rows_symptoms, {
+      startY: 50
+    });
+    // Add table of occurrences to the PDF
+    doc.autoTable(columns_occurrences, rows_occurrences, {
+      startY: doc.autoTable.previous.finalY + 15,
+      margin: {horizontal: 7},
+      bodyStyles: {valign: 'top'},
+      styles: {overflow: 'linebreak', columnWidth: 'wrap'},
+      columnStyles: {text: {columnWidth: 'auto'}}
+    });
+    // Add Occurrences per symptom charts to pdf
+    doc.addPage();
+    const nbOfOccurrencesPerSymptom = document.getElementById('nbOfOccurrencesPerSymptom');
+    doc.addHTML(nbOfOccurrencesPerSymptom, () => {
+      doc.addPage();
+    });
+    // Add Occurrences per day charts to pdf
+    const nbOfOccurrencesPerDay = document.getElementById('nbOfOccurrencesPerDay');
+    doc.addHTML(nbOfOccurrencesPerDay, () => {
+    });
+    setTimeout(() => {
+      doc.save('result.pdf');
+    });
   }
 
   /**
