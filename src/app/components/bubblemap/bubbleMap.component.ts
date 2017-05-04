@@ -18,7 +18,6 @@ declare const google: any;
 export class BubbleMapComponent implements AfterViewInit, OnChanges {
 
   @Input() public symptoms: Symptom[];
-  @Input() public symptomsColors: string[] = [];
 
   public title: string = 'Geolocalisation';
   private zoom: number = 6;
