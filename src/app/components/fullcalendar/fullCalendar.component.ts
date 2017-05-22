@@ -24,7 +24,7 @@ export class FullCalendarComponent implements AfterViewInit, OnChanges {
   };
 
   public ngAfterViewInit() {
-    this.calendar = $(this._selector.nativeElement).fullCalendar(this.fullCalendarConfiguration);
+    this.calendar = ($(this._selector.nativeElement) as any).fullCalendar(this.fullCalendarConfiguration);
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
